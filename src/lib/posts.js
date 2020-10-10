@@ -5,12 +5,10 @@ import {
   isEntryFileName,
   normalizedTag,
 } from "./content";
+import { parseMarkdown } from "./markdown";
 
 const fs = require("fs").promises;
 const path = require("path");
-const matter = require("gray-matter");
-const remark = require("remark");
-const html = require("remark-html");
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
@@ -29,15 +27,8 @@ export async function getAllPostIds() {
 export async function getPostData(id) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = await fs.readFile(fullPath, "utf8");
+  const { matter: d, contentHtml } = await parseMarkdown(fileContents);
 
-  const matterResult = matter(fileContents);
-
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content);
-  const contentHtml = processedContent.toString();
-
-  const d = matterResult.data;
   return {
     id,
     title: String(d.title),

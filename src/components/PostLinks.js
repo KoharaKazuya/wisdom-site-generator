@@ -21,7 +21,7 @@ export default function PostLinks({ posts }) {
             </Link>
             <p>
               {authors.map((author, i) => (
-                <Fragment key={author}>
+                <Fragment key={`${author.name} <${author.email}>`}>
                   {i > 0 && ", "}
                   {author.email ? (
                     <Link href={`/authors/${serializeAuthorId(author.email)}`}>

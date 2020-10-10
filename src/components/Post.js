@@ -12,7 +12,7 @@ export default function Post({ title, date, authors, tags, contentHtml }) {
         <p>Authors</p>
         <ul>
           {authors.map((author) => (
-            <li key={author}>
+            <li key={`${author.name} <${author.email}>`}>
               {author.email ? (
                 <Link href={`/authors/${serializeAuthorId(author.email)}`}>
                   <a>{author.name}</a>
