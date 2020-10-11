@@ -4,7 +4,7 @@
  * @return {boolean}
  */
 export function isEntryFileName(name) {
-  return /^[0-9]{10}-.*\.md$/.test(name);
+  return /^[0-9]{10}-[0-9a-z-]*\.md$/.test(name);
 }
 
 /**
